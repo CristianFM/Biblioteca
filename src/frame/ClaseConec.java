@@ -13,6 +13,7 @@ public class ClaseConec {
     private ResultSet resulSet;
 
     public ClaseConec() {
+       
     }
 
     public void abrirConeccion() throws SQLException {
@@ -20,11 +21,15 @@ public class ClaseConec {
         conn = DriverManager.getConnection(sUrl, "root", "");
         JOptionPane.showMessageDialog(null, "Has sido conectado, bienvenido.");
     }
-
-    public void ejecutarTabla(String sql) throws SQLException {
+    public void reconectar() throws SQLException{
+        String sUrl = "jdbc:mysql://localhost:3306/bibliioteca";
+        conn = DriverManager.getConnection(sUrl, "root", "");
+    }
+    public ResultSet ejecutarTabla(String sql) throws SQLException {
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         resulSet = stmt.executeQuery(sql);
         actualizar();
+        return resulSet;
     }
 
     public void realizarUpdateInsertDelete(String sql) throws SQLException {
@@ -46,6 +51,7 @@ public class ClaseConec {
         Statement stmt = conn.createStatement();
         resulSet = stmt.executeQuery(sql);
         resulSet.next();
+        System.out.println("gyiñl");
     }
 
     public ResultSet getResulSet() {

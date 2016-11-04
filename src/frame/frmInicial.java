@@ -13,7 +13,7 @@ public class frmInicial extends javax.swing.JFrame {
     public frmInicial() {
         ctrAlumno = new controladorAlumno(this);
         initComponents();
-        controlerSQL = new NegocioSQLAlumno();
+        odtAlum = new odtAlumno();
         btmConectar.addActionListener(ctrAlumno);
         btmSalir.addActionListener(ctrAlumno);
         btmAltas.addActionListener(ctrAlumno);
@@ -177,15 +177,17 @@ public class frmInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setTabla() throws SQLException {
-        odtAlum=controlerSQL.getOdtAlumno();
+    /*public void setTabla() throws SQLException {
         
+        odtAlum = new odtAlumno();
+        odtAlum=controlerSQL.getOdtAlumno();
+       
         txtRegistro.setText(odtAlum.getRegistro());
         txtDNI.setText(odtAlum.getDni());
         txtNombre.setText(odtAlum.getNombre());
         txtApellido1.setText(odtAlum.getApellido1());
         txtApellido2.setText(odtAlum.getApellido2());
-    }
+    }*/
 
     public JTextField getTxtAltaApellido1() {
         return txtAltaApellido1;
@@ -217,6 +219,46 @@ public class frmInicial extends javax.swing.JFrame {
 
     public void setTxtAltaNombre(JTextField txtAltaNombre) {
         this.txtAltaNombre = txtAltaNombre;
+    }
+
+    public JTextField getTxtApellido1() {
+        return txtApellido1;
+    }
+
+    public void setTxtApellido1(JTextField txtApellido1) {
+        this.txtApellido1 = txtApellido1;
+    }
+
+    public JTextField getTxtApellido2() {
+        return txtApellido2;
+    }
+
+    public void setTxtApellido2(JTextField txtApellido2) {
+        this.txtApellido2 = txtApellido2;
+    }
+
+    public JTextField getTxtDNI() {
+        return txtDNI;
+    }
+
+    public void setTxtDNI(JTextField txtDNI) {
+        this.txtDNI = txtDNI;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public void setTxtNombre(JTextField txtNombre) {
+        this.txtNombre = txtNombre;
+    }
+
+    public JTextField getTxtRegistro() {
+        return txtRegistro;
+    }
+
+    public void setTxtRegistro(JTextField txtRegistro) {
+        this.txtRegistro = txtRegistro;
     }
     
     
