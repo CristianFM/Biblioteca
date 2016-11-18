@@ -1,4 +1,4 @@
-package frame;
+package BaseDeDatos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,6 +24,7 @@ public class ClaseConec {
     public void reconectar() throws SQLException{
         String sUrl = "jdbc:mysql://localhost:3306/bibliioteca";
         conn = DriverManager.getConnection(sUrl, "root", "");
+        JOptionPane.showMessageDialog(null, "Has sido reconectado.");
     }
     public ResultSet ejecutarTabla(String sql) throws SQLException {
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -33,7 +34,7 @@ public class ClaseConec {
     }
 
     public void realizarUpdateInsertDelete(String sql) throws SQLException {
-        Statement stmt = conn.createStatement();
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         stmt.executeUpdate(sql);
     }
 
@@ -42,16 +43,9 @@ public class ClaseConec {
     }
 
     public void realizarConsulta(String sql) throws SQLException {
-        Statement stmt = conn.createStatement();
+        Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         resulSet = stmt.executeQuery(sql);
         resulSet.next();
-    }
-
-    public void buscarConsulta(String sql) throws SQLException {
-        Statement stmt = conn.createStatement();
-        resulSet = stmt.executeQuery(sql);
-        resulSet.next();
-        System.out.println("gyiñl");
     }
 
     public ResultSet getResulSet() {
@@ -80,8 +74,5 @@ public class ClaseConec {
 
     public void tablaInicio() throws SQLException {
         resulSet.first();
-    }
-
-    
-    
+    }       
 }

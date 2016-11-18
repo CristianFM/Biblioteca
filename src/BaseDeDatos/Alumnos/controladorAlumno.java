@@ -1,4 +1,4 @@
-package frame;
+package BaseDeDatos.Alumnos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
 
 public class controladorAlumno implements ActionListener {
     NegocioSQLAlumno controlerSQL;
-    frmInicial frame;
-
-    public controladorAlumno(frmInicial frame) {
+    frmAlumno frame;
+    odtAlumno odtAlum;
+    public controladorAlumno(frmAlumno frame) {
         this.frame = frame;
-        controlerSQL= new NegocioSQLAlumno();
+        NegocioSQLAlumno controlerSQL = new NegocioSQLAlumno();
     }
 
     public void getInfoAlumnoAlta(odtAlumno alumnoAltas){
@@ -24,8 +24,7 @@ public class controladorAlumno implements ActionListener {
         alumnoAltas.setApellido2(frame.getTxtAltaApellido2().getText());
     }
     public odtAlumno getInfoAlumno() throws SQLException{
-        odtAlumno odtAlum = controlerSQL.getOdtAlumno();
-        return odtAlum;
+        return controlerSQL.getOdtAlumno();
     }
     public void setTablaAlumno() throws SQLException{
         odtAlumno odtAlum= getInfoAlumno();       
@@ -39,21 +38,12 @@ public class controladorAlumno implements ActionListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        if ("btmConectar".equals(e.getActionCommand())) {
-            try {
-                controlerSQL.ConectarBase();
-                setTablaAlumno();
-            } catch (SQLException ex) {
-                Logger.getLogger(frmInicial.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
         if ("btmSiguiente".equals(e.getActionCommand())) {
             try {
                 controlerSQL.BotonAvanzar();
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(frmInicial.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmAnterior".equals(e.getActionCommand())) {
@@ -61,7 +51,7 @@ public class controladorAlumno implements ActionListener {
                 controlerSQL.BotonRetroceder();
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(frmInicial.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmAltas".equals(e.getActionCommand())) {
@@ -76,7 +66,7 @@ public class controladorAlumno implements ActionListener {
                 controlerSQL.Buscar(frame.getTxtRegistro().getText());
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(frmInicial.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(controladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmBaja".equals(e.getActionCommand())) {
@@ -92,6 +82,14 @@ public class controladorAlumno implements ActionListener {
         }
         if ("btmSalir".equals(e.getActionCommand())) {
             System.exit(EXIT_ON_CLOSE);
+        }
+        if("btmRefrescar".equals(e.getActionCommand())){
+            try {
+                controlerSQL.Reconectar();
+                setTablaAlumno();
+            } catch (SQLException ex) {
+                Logger.getLogger(controladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

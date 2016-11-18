@@ -1,4 +1,4 @@
-package frame;
+package BaseDeDatos.Alumnos;
 
 public class odtAlumno {
     

@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/NetbeansProyect/Biblioteca/src/frame/frmInicial.java</file>
-            <file>file:/C:/NetbeansProyect/Biblioteca/src/frame/ClaseConec.java</file>
-            <file>file:/C:/NetbeansProyect/Biblioteca/src/frame/odtAlumno.java</file>
-            <file>file:/C:/NetbeansProyect/Biblioteca/src/frame/controladorAlumno.java</file>
-            <file>file:/C:/NetbeansProyect/Biblioteca/src/frame/NegocioSQLAlumno.java</file>
+            <file>file:/C:/NetbeansProyect/Biblioteca/src/BaseDeDatos/Alumnos/NegocioSQLAlumno.java</file>
+            <file>file:/C:/NetbeansProyect/Biblioteca/src/BaseDeDatos/ClaseConec.java</file>
+            <file>file:/C:/NetbeansProyect/Biblioteca/src/BaseDeDatos/Alumnos/frmAlumno.java</file>
+            <file>file:/C:/NetbeansProyect/Biblioteca/src/BaseDeDatos/Alumnos/controladorAlumno.java</file>
+            <file>file:/C:/NetbeansProyect/Biblioteca/src/BaseDeDatos/Alumnos/odtAlumno.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,10 +1,10 @@
-package frame;
+package BaseDeDatos.Alumnos;
 
+import BaseDeDatos.ClaseConec;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class NegocioSQLAlumno {
     private odtAlumno odtAlum;
@@ -33,19 +33,30 @@ public class NegocioSQLAlumno {
     public void Reconectar(){
         try {
             connect.reconectar();
-            rs = connect.ejecutarTabla(inicializarSQLTabla());
+            connect.ejecutarTabla(inicializarSQLTabla());
         } catch (SQLException ex) {
             Logger.getLogger(NegocioSQLAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public void avanzarCursor() {
+        try {
+            connect.actualizar();
+        } catch (SQLException ex) {
+            Logger.getLogger(NegocioSQLAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public ResultSet getResultSetConect(){
+        return connect.getResulSet();
+    }
+    
     public void SQLAltas(odtAlumno alumno) {
         try {
             String sql = "Insert into alumnos(dni,nombre,apellido1,apellido2) values('"
                     + alumno.getDni() + "','" + alumno.getNombre() + "','" + alumno.getApellido1() + "','" + alumno.getApellido2() + "')";
             connect.realizarUpdateInsertDelete(sql);
             connect.ejecutarTabla(inicializarSQLTabla());
-            System.out.println(sql);
         } catch (SQLException ex) {
             Logger.getLogger(NegocioSQLAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -54,7 +65,6 @@ public class NegocioSQLAlumno {
     public void SQLBajas(odtAlumno alum ) {
         try {
             String sql = "Delete from alumnos where registro = '" + alum.getRegistro() + "'";
-            System.out.println(sql);
             connect.realizarUpdateInsertDelete(sql);
             connect.ejecutarTabla(inicializarSQLTabla());
         } catch (SQLException ex) {
@@ -70,7 +80,7 @@ public class NegocioSQLAlumno {
                 connect.tablaSiguiente();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(frmInicial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,30 +93,21 @@ public class NegocioSQLAlumno {
                 connect.tablaAnterior();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(frmInicial.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void Buscar(String registro) {
         try {
-            connect.buscarConsulta(SQLBusqueda(registro));
-            
+            connect.realizarConsulta(SQLBusqueda(registro));
+            connect.getResulSet();
         } catch (SQLException ex) {
             Logger.getLogger(NegocioSQLAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void avanzarCursor() {
-        try {
-            connect.actualizar();
-        } catch (SQLException ex) {
-            Logger.getLogger(NegocioSQLAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public odtAlumno getOdtAlumno() throws SQLException {
-        
-        odtAlum = new odtAlumno();
+    
+     public odtAlumno getOdtAlumno() throws SQLException {
+        connect.getResulSet();
         
         odtAlum.setRegistro(rs.getString("registro"));
         odtAlum.setDni(rs.getString("dni"));
