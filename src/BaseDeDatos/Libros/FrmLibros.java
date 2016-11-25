@@ -1,12 +1,23 @@
 package BaseDeDatos.Libros;
 
+import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class frmLibros extends javax.swing.JFrame {
-        odtLibros odtLibro;
-        controladorLibros controlerLibros;
-    public frmLibros() {
+public class FrmLibros extends javax.swing.JFrame {
+
+    ControladorLibros controlerLibros;
+
+    public FrmLibros(ControladorLibros controlerLibros) {
         initComponents();
+        this.controlerLibros = controlerLibros;
+        
+        btmAnterior.addActionListener(controlerLibros);
+        btmSiguiente.addActionListener(controlerLibros);
+        btmConfirmarAlta.addActionListener(controlerLibros);
+        btmEliminar.addActionListener(controlerLibros);
+        btmRefrescar.addActionListener(controlerLibros);
+        btmSalir.addActionListener(controlerLibros);
+        btmBuscar.addActionListener(controlerLibros);
     }
 
     @SuppressWarnings("unchecked")
@@ -19,6 +30,7 @@ public class frmLibros extends javax.swing.JFrame {
         txtEditorial = new javax.swing.JTextField();
         txtAsignatura = new javax.swing.JTextField();
         txtEstado = new javax.swing.JTextField();
+        txtAutor = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btmConfirmarAlta = new javax.swing.JButton();
         txtTituloAlta = new javax.swing.JTextField();
@@ -47,6 +59,8 @@ public class frmLibros extends javax.swing.JFrame {
 
         txtEstado.setText("Estado");
 
+        txtAutor.setText("Autor");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -56,10 +70,12 @@ public class frmLibros extends javax.swing.JFrame {
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(29, 29, 29)
+                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(txtEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtAsignatura, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -73,7 +89,8 @@ public class frmLibros extends javax.swing.JFrame {
                     .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAsignatura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -206,10 +223,10 @@ public class frmLibros extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(12, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(228, 228, 228))))
         );
@@ -232,12 +249,44 @@ public class frmLibros extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getBtmAnterior() {
+        return btmAnterior;
+    }
+
+    public JButton getBtmBuscar() {
+        return btmBuscar;
+    }
+
+    public JButton getBtmConfirmarAlta() {
+        return btmConfirmarAlta;
+    }
+
+    public JButton getBtmEliminar() {
+        return btmEliminar;
+    }
+
+    public JButton getBtmRefrescar() {
+        return btmRefrescar;
+    }
+
+    public JButton getBtmSalir() {
+        return btmSalir;
+    }
+
+    public JButton getBtmSiguiente() {
+        return btmSiguiente;
+    }
+
     public JTextField getTxtAsignatura() {
         return txtAsignatura;
     }
 
     public JTextField getTxtAsignaturaAlta() {
         return txtAsignaturaAlta;
+    }
+
+    public JTextField getTxtAutor() {
+        return txtAutor;
     }
 
     public JTextField getTxtAutorAlta() {
@@ -271,38 +320,6 @@ public class frmLibros extends javax.swing.JFrame {
     public JTextField getTxtTituloAlta() {
         return txtTituloAlta;
     }
-    
-    
-    
-    public static void main(String args[]) {
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmLibros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmLibros().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmAnterior;
@@ -318,6 +335,7 @@ public class frmLibros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtAsignatura;
     private javax.swing.JTextField txtAsignaturaAlta;
+    private javax.swing.JTextField txtAutor;
     private javax.swing.JTextField txtAutorAlta;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtEditorial;

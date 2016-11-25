@@ -9,7 +9,7 @@ package BaseDeDatos.Libros;
  *
  * @author DAM Mañana - PC
  */
-public class odtLibros {
+public class OdtLibros {
     private String codigo;
     private String titulo;
     private String autor;
@@ -17,7 +17,7 @@ public class odtLibros {
     private String asignatura;
     private String estado;
     
-    public odtLibros(){
+    public OdtLibros(){
     
     }
 

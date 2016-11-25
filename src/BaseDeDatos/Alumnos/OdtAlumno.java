@@ -1,6 +1,6 @@
 package BaseDeDatos.Alumnos;
 
-public class odtAlumno {
+public class OdtAlumno {
     
     private String registro;
     private String dni;
@@ -8,7 +8,7 @@ public class odtAlumno {
     private String apellido1;
     private String apellido2;
     
-    public odtAlumno(){
+    public OdtAlumno(){
         
     }
 

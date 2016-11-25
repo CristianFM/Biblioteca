@@ -28,6 +28,7 @@ public class ClaseConec {
     }
     public ResultSet ejecutarTabla(String sql) throws SQLException {
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        System.out.println(sql);
         resulSet = stmt.executeQuery(sql);
         actualizar();
         return resulSet;
@@ -48,7 +49,7 @@ public class ClaseConec {
         resulSet.next();
     }
 
-    public ResultSet getResulSet() {
+    public ResultSet getResulSet(){
         return resulSet;
     }
 

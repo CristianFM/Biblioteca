@@ -1,38 +1,48 @@
 package BaseDeDatos.Alumnos;
 
+import Main.FrmMain;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
 
-public class controladorAlumno implements ActionListener {
+
+public class ControladorAlumno implements ActionListener {
     NegocioSQLAlumno controlerSQL;
-    frmAlumno frame;
-    odtAlumno odtAlum;
-    public controladorAlumno(frmAlumno frame) {
-        this.frame = frame;
-        NegocioSQLAlumno controlerSQL = new NegocioSQLAlumno();
+    FrmAlumno frame;
+    OdtAlumno odtAlumo;
+    FrmMain frmMain;
+    public ControladorAlumno(FrmMain frmMain) {
+        try {
+            this.frmMain = frmMain;
+            controlerSQL = new NegocioSQLAlumno();
+            this.frame = new FrmAlumno(frmMain, true, this);
+            frame.setVisible(true);
+            controlerSQL.ConectarBase();
+            setTablaAlumno();
+        } catch (SQLException ex) {
+            Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void getInfoAlumnoAlta(odtAlumno alumnoAltas){
+    public void getInfoAlumnoAlta(OdtAlumno alumnoAltas){
         alumnoAltas.setDni(frame.getTxtAltaDNI().getText());
         alumnoAltas.setNombre(frame.getTxtAltaNombre().getText());
         alumnoAltas.setApellido1(frame.getTxtAltaApellido1().getText());
         alumnoAltas.setApellido2(frame.getTxtAltaApellido2().getText());
     }
-    public odtAlumno getInfoAlumno() throws SQLException{
+    public OdtAlumno getInfoAlumno() throws SQLException{
         return controlerSQL.getOdtAlumno();
     }
     public void setTablaAlumno() throws SQLException{
-        odtAlumno odtAlum= getInfoAlumno();       
-        frame.getTxtRegistro().setText(odtAlum.getRegistro());
-        frame.getTxtDNI().setText(odtAlum.getDni());
-        frame.getTxtNombre().setText(odtAlum.getNombre());
-        frame.getTxtApellido1().setText(odtAlum.getApellido1());
-        frame.getTxtApellido2().setText(odtAlum.getApellido2());
+        odtAlumo = getInfoAlumno();   
+        frame.getTxtRegistro().setText(odtAlumo.getRegistro());
+        frame.getTxtDNI().setText(odtAlumo.getDni());
+        frame.getTxtNombre().setText(odtAlumo.getNombre());
+        frame.getTxtApellido1().setText(odtAlumo.getApellido1());
+        frame.getTxtApellido2().setText(odtAlumo.getApellido2());
         
     }
     
@@ -43,7 +53,7 @@ public class controladorAlumno implements ActionListener {
                 controlerSQL.BotonAvanzar();
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmAnterior".equals(e.getActionCommand())) {
@@ -51,11 +61,11 @@ public class controladorAlumno implements ActionListener {
                 controlerSQL.BotonRetroceder();
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmAltas".equals(e.getActionCommand())) {
-                    odtAlumno alumnoAltas = new odtAlumno();
+                    OdtAlumno alumnoAltas = new OdtAlumno();
                     getInfoAlumnoAlta(alumnoAltas);
                     controlerSQL.SQLAltas(alumnoAltas);
                     controlerSQL.Reconectar();
@@ -66,29 +76,29 @@ public class controladorAlumno implements ActionListener {
                 controlerSQL.Buscar(frame.getTxtRegistro().getText());
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(controladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmBaja".equals(e.getActionCommand())) {
             try {
-                odtAlumno alumno = getInfoAlumno();
+                OdtAlumno alumno = getInfoAlumno();
                 controlerSQL.SQLBajas(alumno);
                 controlerSQL.Reconectar();
                 setTablaAlumno();
                 JOptionPane.showMessageDialog(null, "ENTRADA ELIMINADA");
             } catch (SQLException ex) {
-                Logger.getLogger(controladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmSalir".equals(e.getActionCommand())) {
-            System.exit(EXIT_ON_CLOSE);
+            frame.dispose();
         }
         if("btmRefrescar".equals(e.getActionCommand())){
             try {
                 controlerSQL.Reconectar();
                 setTablaAlumno();
             } catch (SQLException ex) {
-                Logger.getLogger(controladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

@@ -1,39 +1,26 @@
 package BaseDeDatos.Alumnos;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class frmAlumno extends javax.swing.JFrame {
-    NegocioSQLAlumno controlerSQL;
-    controladorAlumno ctrAlumno;
-    
-    public frmAlumno() {
-        try {
-            controlerSQL = new NegocioSQLAlumno();
-            ctrAlumno = new controladorAlumno(this);
-            
-            initComponents();
-            controlerSQL.ConectarBase();
-            ctrAlumno.setTablaAlumno();
-            
-            btmSalir.addActionListener(ctrAlumno);
-            btmAltas.addActionListener(ctrAlumno);
-            btmBaja.addActionListener(ctrAlumno);
-            btmBuscar.addActionListener(ctrAlumno);
-            btmSiguiente.addActionListener(ctrAlumno);
-            btmAnterior.addActionListener(ctrAlumno);
-            btmRefrescar.addActionListener(ctrAlumno);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(frmAlumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void actionListeners(){
-    }
+public class FrmAlumno extends javax.swing.JDialog {
 
+    ControladorAlumno ctrAlumno;
+
+    public FrmAlumno(java.awt.Frame parent, boolean modal,ControladorAlumno ctrAlumno) {
+        super(parent,modal);
+        initComponents();
+        this.ctrAlumno = ctrAlumno;
+
+        btmSalir.addActionListener(ctrAlumno);
+        btmAltas.addActionListener(ctrAlumno);
+        btmBaja.addActionListener(ctrAlumno);
+        btmBuscar.addActionListener(ctrAlumno);
+        btmSiguiente.addActionListener(ctrAlumno);
+        btmAnterior.addActionListener(ctrAlumno);
+        btmRefrescar.addActionListener(ctrAlumno);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -331,16 +318,7 @@ public class frmAlumno extends javax.swing.JFrame {
     public JButton getBtmRefrescar() {
         return btmRefrescar;
     }
-    
-    
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmAlumno().setVisible(true);
-            }
-        });
-    }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btmAltas;
