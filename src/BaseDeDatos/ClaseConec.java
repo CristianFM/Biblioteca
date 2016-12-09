@@ -19,11 +19,9 @@ public class ClaseConec {
     public void abrirConeccion() throws SQLException {
         String sUrl = "jdbc:mysql://localhost:3306/bibliioteca";
         conn = DriverManager.getConnection(sUrl, "root", "");
-        JOptionPane.showMessageDialog(null, "Has sido conectado, bienvenido.");
     }
     public void reconectar() throws SQLException{
-        String sUrl = "jdbc:mysql://localhost:3306/bibliioteca";
-        conn = DriverManager.getConnection(sUrl, "root", "");
+        abrirConeccion();
         JOptionPane.showMessageDialog(null, "Has sido reconectado.");
     }
     public ResultSet ejecutarTabla(String sql) throws SQLException {
@@ -35,8 +33,10 @@ public class ClaseConec {
     }
 
     public void realizarUpdateInsertDelete(String sql) throws SQLException {
+        System.out.println(sql);
         Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         stmt.executeUpdate(sql);
+        System.out.println(sql);
     }
 
     public void actualizar() throws SQLException {
@@ -52,28 +52,4 @@ public class ClaseConec {
     public ResultSet getResulSet(){
         return resulSet;
     }
-
-    public void tablaSiguiente() throws SQLException {
-        resulSet.next();
-    }
-
-    public void tablaAnterior() throws SQLException {
-        resulSet.previous();
-    }
-
-    public boolean isTablaFinal() throws SQLException {
-        return resulSet.isLast();
-    }
-
-    public void tablaFinal() throws SQLException {
-        resulSet.last();
-    }
-
-    public boolean isTablaInicio() throws SQLException {
-        return resulSet.isFirst();
-    }
-
-    public void tablaInicio() throws SQLException {
-        resulSet.first();
-    }       
 }

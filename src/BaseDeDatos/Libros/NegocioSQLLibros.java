@@ -1,7 +1,6 @@
 package BaseDeDatos.Libros;
 
-import BaseDeDatos.Alumnos.FrmAlumno;
-import BaseDeDatos.Alumnos.OdtAlumno;
+import BaseDeDatos.Alumnos.DialogAlumno;
 import BaseDeDatos.ClaseConec;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NegocioSQLLibros {
-     private OdtLibros odtLibros;
+    private OdtLibros odtLibros;
     private ClaseConec connect;
     private ResultSet rs;
     
@@ -36,7 +35,7 @@ public class NegocioSQLLibros {
     public void Reconectar(){
         try {
             connect.reconectar();
-            connect.ejecutarTabla(inicializarSQLTabla());
+            rs = connect.ejecutarTabla(inicializarSQLTabla());
         } catch (SQLException ex) {
             Logger.getLogger(NegocioSQLLibros.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -56,9 +55,10 @@ public class NegocioSQLLibros {
     
     public void SQLAltas(OdtLibros libro) {
         try {
-            String sql = "Insert into biblioteca(titulo, autor, editorial, asignatura, estado) values('"
+            String sql = "Insert into libros(titulo, autor, editorial, asignatura, estado) values('"
                     + libro.getTitulo() + "','" +libro.getAutor() + "','" + libro.getEditorial() +
                         "','" + libro.getAsignatura() +"','" + libro.getEstado() + "')";
+            System.out.println(sql);
             connect.realizarUpdateInsertDelete(sql);
             connect.ejecutarTabla(inicializarSQLTabla());
         } catch (SQLException ex) {
@@ -68,7 +68,7 @@ public class NegocioSQLLibros {
 
     public void SQLBajas(OdtLibros libro) {
         try {
-            String sql = "Delete from libros where registro = '" + libro.getCodigo() + "'";
+            String sql = "Delete from libros where codigo = '" + libro.getCodigo() + "'";
             connect.realizarUpdateInsertDelete(sql);
             connect.ejecutarTabla(inicializarSQLTabla());
         } catch (SQLException ex) {
@@ -78,26 +78,26 @@ public class NegocioSQLLibros {
 
     public void BotonAvanzar() {
         try {
-            if (connect.isTablaFinal()) {
-                connect.tablaInicio();
+            if (rs.isLast()) {
+                rs.first();
             } else {
-                connect.tablaSiguiente();
+                rs.next();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void BotonRetroceder() {
         try {
-            if (connect.isTablaInicio()) {
-                connect.tablaFinal();
+            if (rs.isFirst()) {
+                rs.last();
 
             } else {
-                connect.tablaAnterior();
+                rs.previous();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -113,14 +113,13 @@ public class NegocioSQLLibros {
      public OdtLibros getOdtLibros() throws SQLException {
         
         ResultSet resulsetAlum;
-        resulsetAlum = connect.getResulSet();
         
-        odtLibros.setCodigo(resulsetAlum.getString("codigo"));
-        odtLibros.setTitulo(resulsetAlum.getString("titulo"));
-        odtLibros.setAutor(resulsetAlum.getString("autor"));
-        odtLibros.setEditorial(resulsetAlum.getString("editorial"));
-        odtLibros.setAsignatura(resulsetAlum.getString("asignatura"));
-        odtLibros.setEstado(resulsetAlum.getString("estado"));
+        odtLibros.setCodigo(rs.getString("codigo"));
+        odtLibros.setTitulo(rs.getString("titulo"));
+        odtLibros.setAutor(rs.getString("autor"));
+        odtLibros.setEditorial(rs.getString("editorial"));
+        odtLibros.setAsignatura(rs.getString("asignatura"));
+        odtLibros.setEstado(rs.getString("estado"));
         return odtLibros;
     }
 

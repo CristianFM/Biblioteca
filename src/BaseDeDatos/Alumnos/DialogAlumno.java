@@ -3,11 +3,11 @@ package BaseDeDatos.Alumnos;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class FrmAlumno extends javax.swing.JDialog {
+public class DialogAlumno extends javax.swing.JDialog {
 
     ControladorAlumno ctrAlumno;
 
-    public FrmAlumno(java.awt.Frame parent, boolean modal,ControladorAlumno ctrAlumno) {
+    public DialogAlumno(java.awt.Frame parent, boolean modal,ControladorAlumno ctrAlumno) {
         super(parent,modal);
         initComponents();
         this.ctrAlumno = ctrAlumno;
@@ -49,7 +49,7 @@ public class FrmAlumno extends javax.swing.JDialog {
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btmSiguiente.setText("Siguiente");
         btmSiguiente.setActionCommand("btmSiguiente");
@@ -110,7 +110,7 @@ public class FrmAlumno extends javax.swing.JDialog {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(39, Short.MAX_VALUE)
                 .addComponent(txtRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,7 +222,7 @@ public class FrmAlumno extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

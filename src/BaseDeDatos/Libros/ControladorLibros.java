@@ -1,51 +1,46 @@
 package BaseDeDatos.Libros;
 
-import BaseDeDatos.Alumnos.ControladorAlumno;
-import BaseDeDatos.Alumnos.FrmAlumno;
-import BaseDeDatos.Alumnos.NegocioSQLAlumno;
-import BaseDeDatos.Alumnos.OdtAlumno;
-import java.awt.Frame;
+import Main.FrmMain;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JOptionPane;
 
 
 public class ControladorLibros implements ActionListener{
     NegocioSQLLibros controlerSQL;
     OdtLibros odtLibros;
-    FrmLibros frm;
-    public ControladorLibros(){
+    DialogLibros dialogo;
+    FrmMain frmMain;
+    public ControladorLibros(FrmMain frmMain){
         try {
+            this.frmMain = frmMain;
             controlerSQL = new NegocioSQLLibros();
-            this.frm                                                                                                                                                                                        = new FrmLibros(this);
-            frm.setVisible(true);
+            this.dialogo = new DialogLibros(frmMain, true, this);    
             controlerSQL.ConectarBase();
+            dialogo.setVisible(true);
             setTablaLibros();
         } catch (SQLException ex) {
-            Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
     }
     public void getInfoLibrosAlta(OdtLibros libroAltas){
-        libroAltas.setTitulo(frm.getTxtTituloAlta().getText());
-        libroAltas.setAsignatura(frm.getTxtAsignaturaAlta().getText());
-        libroAltas.setEditorial(frm.getTxtEditorialAlta().getText());
-        libroAltas.setEstado(frm.getTxtEstadoAlta().getText());
+        libroAltas.setTitulo(dialogo.getTxtTituloAlta().getText());
+        libroAltas.setAsignatura(dialogo.getTxtAsignaturaAlta().getText());
+        libroAltas.setEditorial(dialogo.getTxtEditorialAlta().getText());
+        libroAltas.setEstado(dialogo.getTxtEstadoAlta().getText());
     }
     public OdtLibros getInfoLibros() throws SQLException{
         return controlerSQL.getOdtLibros();
     }
     public void setTablaLibros() throws SQLException{
         odtLibros = getInfoLibros();   
-        frm.getTxtCodigo().setText(odtLibros.getCodigo());
-        frm.getTxtTitulo().setText(odtLibros.getTitulo());
-        frm.getTxtAutor().setText(odtLibros.getAutor());
-        frm.getTxtEditorial().setText(odtLibros.getEditorial());
-        frm.getTxtAsignatura().setText(odtLibros.getAsignatura());
-        frm.getTxtEstado().setText(odtLibros.getEstado());
+        dialogo.getTxtCodigo().setText(odtLibros.getCodigo());
+        dialogo.getTxtTitulo().setText(odtLibros.getTitulo());
+        dialogo.getTxtAutor().setText(odtLibros.getAutor());
+        dialogo.getTxtEditorial().setText(odtLibros.getEditorial());
+        dialogo.getTxtAsignatura().setText(odtLibros.getAsignatura());
+        dialogo.getTxtEstado().setText(odtLibros.getEstado());
         
     }
     @Override
@@ -55,7 +50,6 @@ public class ControladorLibros implements ActionListener{
                 controlerSQL.BotonAvanzar();
                 setTablaLibros();
             } catch (SQLException ex) {
-                Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmAnterior".equals(e.getActionCommand())) {
@@ -63,7 +57,6 @@ public class ControladorLibros implements ActionListener{
                 controlerSQL.BotonRetroceder();
                 setTablaLibros();
             } catch (SQLException ex) {
-                Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmConfirmarAlta".equals(e.getActionCommand())) {
@@ -75,34 +68,32 @@ public class ControladorLibros implements ActionListener{
         }
         if ("btmBuscar".equals(e.getActionCommand())) {
             try {
-                controlerSQL.Buscar(frm.getTxtCodigo().getText());
+                controlerSQL.Buscar(dialogo.getTxtCodigo().getText());
                 setTablaLibros();
             } catch (SQLException ex) {
-                Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if ("btmBaja".equals(e.getActionCommand())) {
+        if ("btmEliminar".equals(e.getActionCommand())) {
             try {
                 OdtLibros libro = getInfoLibros();
                 controlerSQL.SQLBajas(libro);
+                JOptionPane.showMessageDialog(null, "ENTRADA ELIMINADA");
                 controlerSQL.Reconectar();
                 setTablaLibros();
-                JOptionPane.showMessageDialog(null, "ENTRADA ELIMINADA");
             } catch (SQLException ex) {
-                Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if ("btmSalir".equals(e.getActionCommand())) {
-            System.exit(EXIT_ON_CLOSE);
+            dialogo.dispose();
         }
         if("btmRefrescar".equals(e.getActionCommand())){
             try {
                 controlerSQL.Reconectar();
                 setTablaLibros();
             } catch (SQLException ex) {
-                Logger.getLogger(ControladorAlumno.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
     
 }
+

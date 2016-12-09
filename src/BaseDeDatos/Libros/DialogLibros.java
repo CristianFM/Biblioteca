@@ -3,11 +3,12 @@ package BaseDeDatos.Libros;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class FrmLibros extends javax.swing.JFrame {
+public class DialogLibros extends javax.swing.JDialog {
 
     ControladorLibros controlerLibros;
 
-    public FrmLibros(ControladorLibros controlerLibros) {
+    public DialogLibros(java.awt.Frame parent, boolean modal,ControladorLibros controlerLibros) {
+        super(parent,modal);
         initComponents();
         this.controlerLibros = controlerLibros;
         
@@ -47,7 +48,7 @@ public class FrmLibros extends javax.swing.JFrame {
         btmSalir = new javax.swing.JButton();
         btmRefrescar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtCodigo.setText("Codigo");
 
@@ -95,7 +96,7 @@ public class FrmLibros extends javax.swing.JFrame {
         );
 
         btmConfirmarAlta.setText("Confirmar Alta");
-        btmConfirmarAlta.setActionCommand("btmAlta");
+        btmConfirmarAlta.setActionCommand("btmConfirmarAlta");
 
         txtTituloAlta.setText("Titulo");
 
@@ -150,7 +151,7 @@ public class FrmLibros extends javax.swing.JFrame {
         btmBuscar.setActionCommand("btmBuscar");
 
         btmEliminar.setText("Eliminar Registro");
-        btmEliminar.setActionCommand("btmBorrar");
+        btmEliminar.setActionCommand("btmEliminar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

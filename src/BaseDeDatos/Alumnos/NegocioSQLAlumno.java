@@ -75,48 +75,48 @@ public class NegocioSQLAlumno {
 
     public void BotonAvanzar() {
         try {
-            if (connect.isTablaFinal()) {
-                connect.tablaInicio();
+            if (rs.isLast()) {
+                rs.first();
             } else {
-                connect.tablaSiguiente();
+                rs.next();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void BotonRetroceder() {
         try {
-            if (connect.isTablaInicio()) {
-                connect.tablaFinal();
+            if (rs.isFirst()) {
+                rs.last();
 
             } else {
-                connect.tablaAnterior();
+                rs.previous();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrmAlumno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public void Buscar(String registro) {
         try {
             connect.realizarConsulta(SQLBusqueda(registro));
-            connect.getResulSet();
+            rs = connect.getResulSet();
         } catch (SQLException ex) {
             Logger.getLogger(NegocioSQLAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }        
     
      public OdtAlumno getOdtAlumno() throws SQLException {
         
         ResultSet resulsetAlum;
-        resulsetAlum = connect.getResulSet();
+        //resulsetAlum = connect.getResulSet();
         
-        odtAlum.setRegistro(resulsetAlum.getString("registro"));
-        odtAlum.setDni(resulsetAlum.getString("dni"));
-        odtAlum.setNombre(resulsetAlum.getString("nombre"));
-        odtAlum.setApellido1(resulsetAlum.getString("Apellido1"));
-        odtAlum.setApellido2(resulsetAlum.getString("Apellido2"));
+        odtAlum.setRegistro(rs.getString("registro"));
+        odtAlum.setDni(rs.getString("dni"));
+        odtAlum.setNombre(rs.getString("nombre"));
+        odtAlum.setApellido1(rs.getString("Apellido1"));
+        odtAlum.setApellido2(rs.getString("Apellido2"));
         return odtAlum;
     }
 
